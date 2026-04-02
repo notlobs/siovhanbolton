@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siovhan Bolton</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  /* Glowing Topaz Radiance */
+  --violet: #B236FE;
+  --pink:   #FF5FFF;
+  --blue:   #2E8DFF;
+  --topaz:  #21BFC4;
+  --lime:   #D4FF00;
+
+  /* Darker, accessible versions for text on white */
+  --topaz-dark:  #0A8F94;
+  --violet-dark: #8B1FD4;
+  --pink-dark:   #C400C4;
+  --blue-dark:   #1265CC;
+  --lime-dark:   #6B8200;
+
+  /* Light-mode neutrals */
+  --white:      #FFFFFF;
+  --off-white:  #F7F8FA;
+  --surface:    #F0F2F5;
+  --surface2:   #E8EAED;
+  --border:     #E2E4E8;
+  --border-mid: #CDD0D6;
+  --black:      #0D0D0D;
+  --ink:        #1A1A1A;
+  --body:       #2E2E2E;
+  --muted:      #5A5F6A;
+  --faint:      #8A909C;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 1rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.07); }
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-weight: 900;
+  color: var(--black); text-decoration: none;
+}
+.nav-logo span { color: var(--topaz-dark); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--muted);
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--topaz-dark); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  padding-top: 80px;
+  position: relative; overflow: hidden;
+}
+
+.orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  filter: blur(90px);
+}
+.orb1 { width:600px;height:600px; top:-150px; right:-100px; background:rgba(178,54,254,0.22); }
+.orb2 { width:480px;height:480px; bottom:-100px; left:-120px; background:rgba(33,191,196,0.18); }
+.orb3 { width:300px;height:300px; top:42%; left:42%; background:rgba(212,255,0,0.09); }
+.orb4 { width:320px;height:320px; top:18%; left:52%; background:rgba(46,141,255,0.11); }
+
+.hero-inner {
+  flex: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 4rem 3.5rem 2rem;
+  position: relative; z-index: 2;
+  max-width: 980px;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--topaz);
+  margin-bottom: 1.75rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 36px; height: 1.5px; background: var(--topaz);
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  font-weight: 900; line-height: 0.9; letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+}
+.hero-name .solid  { display: block; color: var(--white); }
+.hero-name .outline {
+  display: block; color: transparent;
+  -webkit-text-stroke: 2px var(--topaz);
+  font-style: italic;
+}
+
+.hero-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; margin: 1.75rem 0 2.25rem; }
+.htag {
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em;
+  padding: 0.35rem 1rem; border-radius: 99px; text-transform: uppercase;
+}
+.ht-topaz  { background: rgba(33,191,196,0.15);  color: var(--topaz);  border: 1px solid rgba(33,191,196,0.4);  }
+.ht-violet { background: rgba(178,54,254,0.14); color: #D480FF;       border: 1px solid rgba(178,54,254,0.4); }
+.ht-pink   { background: rgba(255,95,255,0.12);  color: var(--pink);   border: 1px solid rgba(255,95,255,0.38); }
+.ht-blue   { background: rgba(46,141,255,0.14);  color: #7BB8FF;       border: 1px solid rgba(46,141,255,0.38); }
+
+.hero-bio {
+  font-size: 1.12rem; color: rgba(255,255,255,0.68);
+  line-height: 1.85; max-width: 600px; margin-bottom: 2.75rem;
+}
+.hero-bio strong { color: var(--white); font-weight: 600; }
+
+.hero-cta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+.btn-primary {
+  background: var(--topaz); color: var(--black);
+  padding: 0.9rem 2rem; border-radius: 99px;
+  font-size: 0.9rem; font-weight: 700; letter-spacing: 0.03em;
+  text-decoration: none;
+  box-shadow: 0 0 28px rgba(33,191,196,0.4);
+  transition: background 0.2s, box-shadow 0.25s, transform 0.15s;
+}
+.btn-primary:hover {
+  background: #2fd4da;
+  box-shadow: 0 0 48px rgba(33,191,196,0.6);
+  transform: translateY(-2px);
+}
+.btn-outline {
+  color: rgba(255,255,255,0.8); padding: 0.9rem 1.75rem; border-radius: 99px;
+  font-size: 0.9rem; font-weight: 500; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+
+/* ticker */
+.hero-ticker {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden; padding: 1.4rem 0;
+  position: relative; z-index: 2;
+}
+.ticker-track {
+  display: flex; width: max-content;
+  animation: ticker 38s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 0 2.5rem; white-space: nowrap;
+  font-size: 0.83rem; font-weight: 500; letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.32);
+}
+.ticker-item strong { color: rgba(255,255,255,0.72); font-weight: 700; }
+.tdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.td-t{background:var(--topaz)}.td-v{background:var(--violet)}.td-p{background:var(--pink)}
+.td-b{background:var(--blue)}.td-l{background:var(--lime)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── SHARED LIGHT SECTIONS ─── */
+.section-light { padding: 7rem 0; background: var(--white); }
+.section-off    { padding: 7rem 0; background: var(--off-white); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 3.5rem; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 1.1rem;
+  padding: 0.28rem 0.85rem; border-radius: 99px;
+}
+.ey-t { background: rgba(10,143,148,0.09);  color: var(--topaz-dark);  border: 1px solid rgba(10,143,148,0.25);  }
+.ey-v { background: rgba(139,31,212,0.09); color: var(--violet-dark); border: 1px solid rgba(139,31,212,0.25); }
+.ey-p { background: rgba(196,0,196,0.08);   color: var(--pink-dark);   border: 1px solid rgba(196,0,196,0.22);   }
+.ey-b { background: rgba(18,101,204,0.09);  color: var(--blue-dark);   border: 1px solid rgba(18,101,204,0.25);  }
+.ey-l { background: rgba(107,130,0,0.09);   color: var(--lime-dark);   border: 1px solid rgba(107,130,0,0.25);   }
+
+.big-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 900; line-height: 1.05; letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.big-h em { font-style: italic; }
+.c-t { color: var(--topaz-dark); }
+.c-v { color: var(--violet-dark); }
+.c-p { color: var(--pink-dark); }
+.c-b { color: var(--blue-dark); }
+.c-l { color: var(--lime-dark); }
+
+/* ─── STORY ─── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start; margin-top: 3.5rem;
+}
+
+.story-paras { display: flex; flex-direction: column; }
+.story-para {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.story-para:first-child { padding-top: 0; }
+.story-para:last-child { border-bottom: none; }
+.story-para p { font-size: 1.05rem; color: var(--body); line-height: 1.9; }
+.story-para p strong { color: var(--ink); font-weight: 700; }
+
+.value-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.25rem; }
+.val-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 1.4rem 1.6rem;
+  display: flex; align-items: flex-start; gap: 1rem;
+  transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+}
+.val-card:hover {
+  border-color: var(--topaz-dark);
+  transform: translateX(5px);
+  box-shadow: 4px 0 0 0 var(--topaz-dark);
+}
+.val-icon {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+.vi-t{background:rgba(10,143,148,0.1)} .vi-v{background:rgba(139,31,212,0.09)}
+.vi-b{background:rgba(18,101,204,0.09)}.vi-l{background:rgba(107,130,0,0.09)}
+.val-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+.val-desc  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── NUMBERS — stays dark, it's a visual break ─── */
+#numbers {
+  background: var(--black);
+  padding: 5.5rem 0;
+  position: relative; overflow: hidden;
+}
+#numbers::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(33,191,196,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 50%, rgba(178,54,254,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.nums-top {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; position: relative; z-index: 1;
+}
+.nums-top .big-h { color: var(--white); }
+.nums-sub { font-size: 0.9rem; color: rgba(255,255,255,0.4); max-width: 340px; line-height: 1.7; }
+
+.nums-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px; overflow: hidden;
+  position: relative; z-index: 1;
+}
+.num-cell {
+  background: var(--black);
+  padding: 2.75rem 2.25rem;
+  transition: background 0.2s;
+}
+.num-cell:hover { background: #161616; }
+.num-fig {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.4rem; font-weight: 900; line-height: 1; margin-bottom: 0.6rem;
+}
+.num-unit { font-family: 'DM Sans', sans-serif; font-size: 1.9rem; font-weight: 700; }
+.nf-t{color:var(--topaz)} .nf-v{color:var(--violet)} .nf-p{color:var(--pink)}
+.nf-b{color:var(--blue)} .nf-l{color:var(--lime)}
+.num-lbl { font-size: 0.84rem; color: rgba(255,255,255,0.5); line-height: 1.55; max-width: 200px; }
+
+/* ─── EXPERIENCE ─── */
+.exp-stack { display: flex; flex-direction: column; margin-top: 4rem; }
+.exp-row {
+  display: grid; grid-template-columns: 240px 1fr;
+  padding: 3rem 0; border-top: 1px solid var(--border);
+  position: relative; transition: all 0.25s;
+}
+.exp-row:last-child { border-bottom: 1px solid var(--border); }
+.exp-row::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2.5px; background: transparent;
+  transition: background 0.3s; border-radius: 2px;
+}
+.exp-row:hover::before { background: var(--topaz-dark); }
+.exp-body { transition: padding 0.3s; }
+.exp-row:hover .exp-body { padding-left: 1.25rem; }
+
+.exp-co {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.98rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem;
+}
+.exp-where { font-size: 0.77rem; color: var(--faint); margin-bottom: 0.7rem; }
+.exp-when {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+  padding: 0.22rem 0.75rem; border-radius: 99px;
+  background: rgba(10,143,148,0.09); color: var(--topaz-dark); border: 1px solid rgba(10,143,148,0.25);
+}
+
+.exp-role {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 700; font-style: italic;
+  color: var(--ink); margin-bottom: 1.2rem;
+}
+.exp-pts { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.exp-pts li {
+  font-size: 0.92rem; color: var(--body);
+  padding-left: 1.4rem; position: relative; line-height: 1.75;
+}
+.exp-pts li::before {
+  content: ''; position: absolute; left: 0; top: 0.65em;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--topaz-dark); opacity: 0.5;
+}
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+.tag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em;
+  padding: 0.2rem 0.65rem; border-radius: 10px;
+}
+.tag-t{background:rgba(10,143,148,0.08);  color:var(--topaz-dark);  border:1px solid rgba(10,143,148,0.2);}
+.tag-v{background:rgba(139,31,212,0.08); color:var(--violet-dark); border:1px solid rgba(139,31,212,0.2);}
+.tag-p{background:rgba(196,0,196,0.07);   color:var(--pink-dark);   border:1px solid rgba(196,0,196,0.2);}
+.tag-b{background:rgba(18,101,204,0.08);  color:var(--blue-dark);   border:1px solid rgba(18,101,204,0.2);}
+.tag-l{background:rgba(107,130,0,0.08);   color:var(--lime-dark);   border:1px solid rgba(107,130,0,0.2);}
+
+.award-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+.award-tag {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.7rem; font-weight: 700;
+  padding: 0.25rem 0.75rem; border-radius: 10px;
+  background: rgba(107,130,0,0.08); color: var(--lime-dark); border: 1px solid rgba(107,130,0,0.22);
+}
+
+/* ─── SKILLS ─── */
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4.5rem; align-items: start; margin-top: 4rem;
+}
+
+.skill-cards { display: flex; flex-direction: column; gap: 1.1rem; }
+.sk-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 18px; padding: 1.75rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.sk-card:hover {
+  border-color: var(--violet-dark);
+  box-shadow: 0 4px 24px rgba(139,31,212,0.08);
+}
+.sk-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }
+.sk-ico {
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+}
+.ski-t{background:rgba(10,143,148,0.1)}  .ski-v{background:rgba(139,31,212,0.09)}
+.ski-p{background:rgba(196,0,196,0.08)}  .ski-b{background:rgba(18,101,204,0.09)}
+.ski-l{background:rgba(107,130,0,0.09)}
+.sk-name { font-size: 0.93rem; font-weight: 700; color: var(--ink); }
+.sk-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.sk-pill {
+  font-size: 0.76rem; color: var(--muted);
+  background: var(--surface);
+  padding: 0.22rem 0.65rem; border-radius: 8px;
+}
+
+.tools-col { position: sticky; top: 110px; }
+.tools-lbl {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: 1.25rem;
+}
+.tools-wrap { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 2.5rem; }
+.tool {
+  font-size: 0.82rem; font-weight: 500; padding: 0.42rem 1rem; border-radius: 99px;
+  background: var(--white); border: 1.5px solid var(--border); color: var(--muted);
+  cursor: default; transition: all 0.2s;
+}
+.tool:hover {
+  background: rgba(10,143,148,0.07);
+  border-color: var(--topaz-dark);
+  color: var(--topaz-dark);
+  transform: scale(1.04);
+}
+
+.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.25rem; }
+.cert-c {
+  display: flex; align-items: center; gap: 0.65rem;
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 1rem 1.1rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cert-c:hover { background: rgba(107,130,0,0.05); border-color: var(--lime-dark); }
+.cert-dot {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(107,130,0,0.1); border: 1px solid rgba(107,130,0,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; color: var(--lime-dark); font-weight: 700;
+}
+.cert-txt { font-size: 0.78rem; font-weight: 500; color: var(--body); line-height: 1.4; }
+
+/* ─── AWARDS — dark accent section ─── */
+#awards {
+  background: var(--off-white);
+  padding: 5.5rem 0;
+}
+
+.awards-layout {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  gap: 5rem; align-items: start;
+}
+.awards-left p { font-size: 1rem; color: var(--muted); line-height: 1.85; margin-top: 1.25rem; }
+
+.award-cards { display: flex; flex-direction: column; gap: 1rem; }
+.award-card {
+  display: flex; align-items: flex-start; gap: 1.25rem;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 18px; padding: 1.5rem 1.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.award-card:hover {
+  border-color: var(--lime-dark);
+  box-shadow: 0 4px 20px rgba(107,130,0,0.1);
+  transform: translateX(5px);
+}
+.award-icon-wrap {
+  width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+  background: rgba(107,130,0,0.09); border: 1px solid rgba(107,130,0,0.22);
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+}
+.award-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+.award-org  { font-size: 0.8rem; color: var(--faint); }
+
+/* ─── CONTACT ─── */
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5.5rem; align-items: start;
+}
+.contact-left p {
+  font-size: 1rem; color: var(--muted); line-height: 1.85;
+  margin: 1.25rem 0 2.5rem;
+}
+.clinks { display: flex; flex-direction: column; gap: 1rem; }
+.clink {
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 0.95rem; font-weight: 600; color: var(--body);
+  text-decoration: none; padding: 1.2rem 1.5rem;
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.clink:hover {
+  border-color: var(--topaz-dark);
+  box-shadow: 0 4px 20px rgba(10,143,148,0.1);
+  transform: translateX(5px);
+  color: var(--topaz-dark);
+}
+.clink-icon {
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  background: rgba(10,143,148,0.09);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--topaz-dark);
+}
+.contact-right { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.edu-box {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 20px; padding: 2rem;
+}
+.edu-lbl {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--topaz-dark); margin-bottom: 0.65rem;
+}
+.edu-school {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.25rem;
+}
+.edu-deg  { font-size: 0.85rem; color: var(--faint); margin-bottom: 1rem; }
+.edu-note {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  font-size: 0.82rem; color: var(--muted); line-height: 1.55;
+  background: rgba(107,130,0,0.06); border: 1px solid rgba(107,130,0,0.2);
+  border-radius: 10px; padding: 0.8rem 1rem;
+}
+
+.avail-box {
+  background: var(--white); border: 1.5px solid var(--border); border-radius: 20px;
+  padding: 2rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.avail-box::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(10,143,148,0.07) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(139,31,212,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.avail-pulse {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.88rem; font-weight: 700; color: var(--ink);
+  margin-bottom: 0.4rem; position: relative;
+}
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #16A34A;
+  box-shadow: 0 0 8px rgba(22,163,74,0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 6px rgba(22,163,74,0.4)}50%{box-shadow:0 0 14px rgba(22,163,74,0.7)}}
+.avail-sub { font-size: 0.82rem; color: var(--muted); position: relative; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--off-white);
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.foot-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem; font-weight: 900; color: var(--muted);
+}
+.foot-name span { color: var(--topaz-dark); }
+.foot-line { font-size: 0.73rem; color: var(--faint); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;animation:fadeUp 0.7s ease forwards}
+.d1{animation-delay:.08s}.d2{animation-delay:.2s}.d3{animation-delay:.34s}
+.d4{animation-delay:.48s}.d5{animation-delay:.62s}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .hero-inner{padding:4rem 2rem 2rem}
+  .about-grid,.skills-grid,.contact-grid,.awards-layout{grid-template-columns:1fr;gap:3rem}
+  .nums-grid{grid-template-columns:1fr 1fr}
+  .exp-row{grid-template-columns:1fr;gap:0.75rem}
+  .tools-col{position:static}
+  .cert-grid{grid-template-columns:1fr}
+  .container{padding:0 1.5rem}
+  nav{padding:1rem 1.5rem}
+  .nav-links{gap:1.25rem}
+  footer{flex-direction:column;gap:0.5rem;text-align:center;padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainnav">
+  <a class="nav-logo" href="#hero">S<span>B</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Story</a></li>
+    <li><a href="#numbers">Numbers</a></li>
+    <li><a href="#experience">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════ HERO (stays dark — it's the dramatic opening) ══════ -->
+<section id="hero">
+  <div class="orb orb1"></div><div class="orb orb2"></div>
+  <div class="orb orb3"></div><div class="orb orb4"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow fu">Senior Social Media Strategist</p>
+    <h1 class="hero-name fu d1">
+      <span class="solid">Siovhan</span>
+      <span class="outline">Bolton.</span>
+    </h1>
+    <div class="hero-tags fu d2">
+      <span class="htag ht-topaz">Global Strategist</span>
+      <span class="htag ht-violet">Emmy Award Winner</span>
+      <span class="htag ht-pink">Digital Storyteller</span>
+      <span class="htag ht-blue">Community Builder</span>
+    </div>
+    <p class="hero-bio fu d3">
+      I turn social media into <strong>measurable moments</strong>: growing audiences by millions, launching channels from zero, and building the kind of community engagement that actually moves the needle. <strong>10+ years</strong> from newsroom to boardroom, combining data-led strategy with sharp editorial instincts.
+    </p>
+    <div class="hero-cta fu d4">
+      <a href="#experience" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-outline">Let's Connect →</a>
+    </div>
+  </div>
+  <div class="hero-ticker fu d5">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="tdot td-t"></span><strong>1M+</strong> LinkedIn followers grown at PMI</div>
+      <div class="ticker-item"><span class="tdot td-v"></span><strong>3× Emmy</strong> Award Winner</div>
+      <div class="ticker-item"><span class="tdot td-p"></span><strong>12.7%</strong> organic engagement rate</div>
+      <div class="ticker-item"><span class="tdot td-b"></span><strong>$130K+</strong> global paid social budget</div>
+      <div class="ticker-item"><span class="tdot td-l"></span>PMI <strong>TikTok launch</strong> from zero</div>
+      <div class="ticker-item"><span class="tdot td-t"></span><strong>800%</strong> Facebook audience growth</div>
+      <div class="ticker-item"><span class="tdot td-v"></span><strong>400K+</strong> video views at Vanderbilt</div>
+      <div class="ticker-item"><span class="tdot td-t"></span><strong>1M+</strong> LinkedIn followers grown at PMI</div>
+      <div class="ticker-item"><span class="tdot td-v"></span><strong>3× Emmy</strong> Award Winner</div>
+      <div class="ticker-item"><span class="tdot td-p"></span><strong>12.7%</strong> organic engagement rate</div>
+      <div class="ticker-item"><span class="tdot td-b"></span><strong>$130K+</strong> global paid social budget</div>
+      <div class="ticker-item"><span class="tdot td-l"></span>PMI <strong>TikTok launch</strong> from zero</div>
+      <div class="ticker-item"><span class="tdot td-t"></span><strong>800%</strong> Facebook audience growth</div>
+      <div class="ticker-item"><span class="tdot td-v"></span><strong>400K+</strong> video views at Vanderbilt</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ STORY ══════ -->
+<section class="section-light" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow ey-t">My Story</div>
+        <h2 class="big-h">Where journalism<br>meets <em class="c-t">strategy</em></h2>
+        <div class="story-paras" style="margin-top:2.5rem">
+          <div class="story-para">
+            <p>My career started in a newsroom, where stories had deadlines, audiences had opinions, and everything had to work. That foundation shapes everything I do: I think in <strong>narratives, audiences, and what makes someone stop scrolling.</strong></p>
+          </div>
+          <div class="story-para">
+            <p>From producing Emmy-winning morning news to leading global social strategy for <strong>PMI, one of the world's largest professional associations,</strong> I've spent 10+ years at the intersection of creativity and results.</p>
+          </div>
+          <div class="story-para">
+            <p>I built PMI's first comprehensive <strong>social listening program</strong>, launched their TikTok from scratch, and developed data frameworks that turn audience signals into decisions leadership can act on.</p>
+          </div>
+          <div class="story-para">
+            <p>I live where <strong>brand, culture, and community collide.</strong> That's where the best social media happens.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);margin-bottom:1.5rem">What I bring</p>
+        <div class="value-list">
+          <div class="val-card">
+            <div class="val-icon vi-t">🎯</div>
+            <div><div class="val-title">Strategy That Scales</div><div class="val-desc">Global campaigns, regional programs, always aligned to business goals and audience realities.</div></div>
+          </div>
+          <div class="val-card">
+            <div class="val-icon vi-v">📡</div>
+            <div><div class="val-title">Newsroom Speed</div><div class="val-desc">Years of live broadcasting mean I move fast, think clearly under pressure, and never miss the moment.</div></div>
+          </div>
+          <div class="val-card">
+            <div class="val-icon vi-b">📊</div>
+            <div><div class="val-title">Data as a Language</div><div class="val-desc">I build measurement frameworks executives actually use. Insights only matter when they're actionable.</div></div>
+          </div>
+          <div class="val-card">
+            <div class="val-icon vi-l">✨</div>
+            <div><div class="val-title">Creative Instinct</div><div class="val-desc">The campaigns people remember aren't just strategic. They feel like something. That's what I build for.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ NUMBERS (dark accent break) ══════ -->
+<section id="numbers">
+  <div class="container">
+    <div class="nums-top">
+      <div>
+        <div class="eyebrow ey-l" style="border-color:rgba(212,255,0,0.3);background:rgba(212,255,0,0.1);color:var(--lime)">Impact by the Numbers</div>
+        <h2 class="big-h">Results that <em style="color:var(--lime)">speak.</em></h2>
+      </div>
+      <p class="nums-sub">Every number below is a real outcome from strategy, creativity, and relentless focus on what the data is saying.</p>
+    </div>
+    <div class="nums-grid">
+      <div class="num-cell"><div class="num-fig nf-t">1<span class="num-unit">M+</span></div><div class="num-lbl">LinkedIn followers grown at PMI in 18 months</div></div>
+      <div class="num-cell"><div class="num-fig nf-v">40<span class="num-unit">K+</span></div><div class="num-lbl">Instagram followers added in a single year</div></div>
+      <div class="num-cell"><div class="num-fig nf-p">12<span class="num-unit">.7%</span></div><div class="num-lbl">Organic engagement rate on a single campaign</div></div>
+      <div class="num-cell"><div class="num-fig nf-b">800<span class="num-unit">%</span></div><div class="num-lbl">Facebook audience growth for WFAA VERIFY in six months</div></div>
+      <div class="num-cell"><div class="num-fig nf-l">$130<span class="num-unit">K</span></div><div class="num-lbl">Global paid social budget managed at $0 year-end</div></div>
+      <div class="num-cell"><div class="num-fig nf-t">400<span class="num-unit">K+</span></div><div class="num-lbl">Video views on Vanderbilt's most successful Twitter content</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ EXPERIENCE ══════ -->
+<section class="section-light" id="experience">
+  <div class="container">
+    <div class="eyebrow ey-t">Experience</div>
+    <h2 class="big-h">Every role,<br><em class="c-t">a new chapter.</em></h2>
+    <div class="exp-stack">
+
+      <div class="exp-row">
+        <div><div class="exp-co">Project Management Institute</div><div class="exp-where">DFW, Texas · Remote</div><div class="exp-when">2022 – Present</div></div>
+        <div class="exp-body">
+          <div class="exp-role">Social Media Specialist III, Senior Lead</div>
+          <ul class="exp-pts">
+            <li>Set strategic direction for enterprise-level organic social channels across global markets.</li>
+            <li>Built PMI's first social listening program, transforming audience signals into marketing and product recommendations leadership acts on.</li>
+            <li>Manage executive-ready weekly, monthly, and quarterly reporting, translating performance into clear business impact.</li>
+            <li>Oversee external vendors, agency relationships, and cross-functional partnerships with marketing, PR, and product teams.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-t">Global Strategy</span><span class="tag tag-t">Social Listening</span>
+            <span class="tag tag-v">Executive Reporting</span><span class="tag tag-b">Agency Management</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-row">
+        <div><div class="exp-co">PMI (Earlier Role)</div><div class="exp-where">DFW, Texas · Remote</div><div class="exp-when">2022 – 2024</div></div>
+        <div class="exp-body">
+          <div class="exp-role">Social Media Specialist II</div>
+          <ul class="exp-pts">
+            <li>Grew LinkedIn by 1M+ followers in 18 months and doubled Instagram from 47K → 87.6K in one year.</li>
+            <li>Launched PMI's TikTok from zero: built full influencer strategy, negotiated contracts, drove engagement.</li>
+            <li>Managed $130K+ global paid social budget, achieving $0 year-end while running MENA regional boosting programs.</li>
+            <li>Executed International Project Management Day with a 12.7% organic engagement rate and 57K+ engagements in a single campaign.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-t">Paid Social</span><span class="tag tag-p">TikTok Launch</span>
+            <span class="tag tag-p">Influencer Marketing</span><span class="tag tag-l">Budget Management</span><span class="tag tag-b">Campaign Strategy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-row">
+        <div><div class="exp-co">Vanderbilt University</div><div class="exp-where">Nashville, TN</div><div class="exp-when">2019 – 2022</div></div>
+        <div class="exp-body">
+          <div class="exp-role">Social Media Specialist</div>
+          <ul class="exp-pts">
+            <li>Created Vanderbilt's most successful Twitter content: 400K+ video views and 66K+ engagements in the first six months.</li>
+            <li>Built a content framework that elevated brand visibility across all digital platforms.</li>
+            <li>Designed and executed paid media strategies meeting reach and engagement goals within budget.</li>
+            <li>Implemented YouTube optimization strategy significantly increasing views and discoverability.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-t">Content Strategy</span><span class="tag tag-b">YouTube SEO</span>
+            <span class="tag tag-v">Video Production</span><span class="tag tag-p">Paid Media</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-row">
+        <div><div class="exp-co">WFAA-TV</div><div class="exp-where">Dallas, TX</div><div class="exp-when">2014 – 2018</div></div>
+        <div class="exp-body">
+          <div class="exp-role">Producer & Multimedia Journalist</div>
+          <ul class="exp-pts">
+            <li>Managed station's social media rebranding: style guidelines, logo redesign, and cross-platform consistency.</li>
+            <li>Led VERIFY fact-checking franchise on Facebook, growing the audience 800% in six months.</li>
+            <li>Produced nationally televised coverage including a fallen officer memorial reaching millions of viewers.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag tag-t">Broadcast Journalism</span><span class="tag tag-v">Social Rebranding</span><span class="tag tag-b">Fact-Checking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-row">
+        <div><div class="exp-co">KGW-TV · KEZI-TV</div><div class="exp-where">Portland & Eugene, OR</div><div class="exp-when">2008 – 2014</div></div>
+        <div class="exp-body">
+          <div class="exp-role">Producer</div>
+          <ul class="exp-pts">
+            <li>Developed digital-first content strategies integrating social media into live newscasts.</li>
+            <li>Maintained #1 market rating at KEZI and grew audience among target demographics.</li>
+          </ul>
+          <div class="award-tags">
+            <span class="award-tag">🏆 Emmy '12</span><span class="award-tag">🏆 Emmy '13</span>
+            <span class="award-tag">🏆 Emmy '14</span><span class="award-tag">🏆 AP Excellence '10</span>
+            <span class="award-tag">🏆 AP Best Newscast '11</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SKILLS ══════ -->
+<section class="section-off" id="skills">
+  <div class="container">
+    <div class="eyebrow ey-v">Skills & Expertise</div>
+    <h2 class="big-h">The full <em class="c-v">toolkit.</em></h2>
+    <div class="skills-grid">
+      <div class="skill-cards">
+        <div class="sk-card">
+          <div class="sk-head"><div class="sk-ico ski-t">🌍</div><div class="sk-name">Global Social Strategy</div></div>
+          <div class="sk-pills"><span class="sk-pill">Organic growth</span><span class="sk-pill">Regional markets</span><span class="sk-pill">MENA programs</span><span class="sk-pill">Campaign planning</span><span class="sk-pill">Omni-channel</span></div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-head"><div class="sk-ico ski-l">💰</div><div class="sk-name">Paid Media & Budget</div></div>
+          <div class="sk-pills"><span class="sk-pill">Paid social</span><span class="sk-pill">Budget management</span><span class="sk-pill">Boosting programs</span><span class="sk-pill">ROI optimization</span></div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-head"><div class="sk-ico ski-p">🤝</div><div class="sk-name">Influencer & Community</div></div>
+          <div class="sk-pills"><span class="sk-pill">Influencer strategy</span><span class="sk-pill">Contract negotiation</span><span class="sk-pill">Community engagement</span><span class="sk-pill">Partnership management</span></div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-head"><div class="sk-ico ski-b">📊</div><div class="sk-name">Analytics & Reporting</div></div>
+          <div class="sk-pills"><span class="sk-pill">Performance frameworks</span><span class="sk-pill">Social listening</span><span class="sk-pill">Executive reporting</span><span class="sk-pill">Trend analysis</span></div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-head"><div class="sk-ico ski-v">🎬</div><div class="sk-name">Content & Video Production</div></div>
+          <div class="sk-pills"><span class="sk-pill">Short-form video</span><span class="sk-pill">Brand storytelling</span><span class="sk-pill">Adobe Premiere</span><span class="sk-pill">After Effects</span><span class="sk-pill">Photoshop</span></div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-head"><div class="sk-ico ski-p">🤖</div><div class="sk-name">Generative AI & Prompt Engineering</div></div>
+          <div class="sk-pills"><span class="sk-pill">ChatGPT</span><span class="sk-pill">Claude</span><span class="sk-pill">Microsoft Copilot</span><span class="sk-pill">Prompt engineering</span><span class="sk-pill">AI-assisted content</span></div>
+        </div>
+      </div>
+      <div class="tools-col">
+        <div class="tools-lbl">Tools & Platforms</div>
+        <div class="tools-wrap">
+          <span class="tool">Sprout Social</span><span class="tool">Hootsuite</span><span class="tool">Sprinklr</span>
+          <span class="tool">Google Analytics</span><span class="tool">Adobe Analytics</span><span class="tool">LinkedIn</span>
+          <span class="tool">Instagram</span><span class="tool">TikTok</span><span class="tool">Facebook</span>
+          <span class="tool">YouTube</span><span class="tool">Twitter / X</span><span class="tool">Adobe Premiere</span>
+          <span class="tool">After Effects</span><span class="tool">Photoshop</span><span class="tool">Meta Blueprint</span>
+        </div>
+        <div class="eyebrow ey-l">Certifications</div>
+        <div class="cert-grid">
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">PMI LEAD Leadership Graduate</div></div>
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">Advanced Social Advertising, Hootsuite</div></div>
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">Meta Blueprint Certified</div></div>
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">Google Analytics Certified</div></div>
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">Generative AI Overview for Project Managers, PMI</div></div>
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">Data Landscape of GenAI for Project Managers, PMI</div></div>
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">Talking to AI: Prompt Engineering for Project Managers, PMI</div></div>
+          <div class="cert-c"><div class="cert-dot">✓</div><div class="cert-txt">Practical Application of Gen AI for Project Managers, PMI</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ AWARDS ══════ -->
+<section id="awards">
+  <div class="container">
+    <div class="awards-layout">
+      <div class="awards-left">
+        <div class="eyebrow ey-l">Recognition</div>
+        <h2 class="big-h">The work<br>speaks <em class="c-l">for itself.</em></h2>
+        <p>Awards aren't the point, but they're a reminder that relentlessly chasing excellence pays off. From newsrooms to global digital campaigns, the work has been recognized at every level.</p>
+      </div>
+      <div class="award-cards">
+        <div class="award-card">
+          <div class="award-icon-wrap">🏆</div>
+          <div><div class="award-name">Emmy Award: Best Morning News (×3)</div><div class="award-org">KGW-TV Portland · Markets 21–80 · 2012, 2013 & 2014</div></div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon-wrap">🏆</div>
+          <div><div class="award-name">AP "Overall Excellence" Award</div><div class="award-org">KEZI 9 News at 5 · Oregon Associated Press · 2010</div></div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon-wrap">🏆</div>
+          <div><div class="award-name">AP "Best Newscast" Award</div><div class="award-org">KEZI 9 News at 5 · Oregon Associated Press · 2011</div></div>
+        </div>
+        <div class="award-card">
+          <div class="award-icon-wrap">⭐</div>
+          <div><div class="award-name">President's Leadership Council, BYU</div><div class="award-org">One of 15 students selected for high-level mentorship from university donors</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section class="section-light" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="eyebrow ey-t">Get in Touch</div>
+        <h2 class="big-h">Let's make<br>something <em class="c-t">great.</em></h2>
+        <p>Whether you're looking for a social media leader, want to collaborate, or just want to connect, my inbox is always open.</p>
+        <div class="clinks">
+          <a href="/cdn-cgi/l/email-protection#91f9f8bfe2f8fee7f9f0ffd1f6fcf0f8fdbff2fefc" class="clink">
+            <div class="clink-icon">✉</div><span class="__cf_email__" data-cfemail="187071366b71776e707976587f75797174367b7775">[email&#160;protected]</span>
+          </a>
+          <a href="https://www.linkedin.com/in/siovhan-bolton/" target="_blank" class="clink">
+            <div class="clink-icon">in</div>linkedin.com/in/siovhan-bolton
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="edu-box">
+          <div class="edu-lbl">Education</div>
+          <div class="edu-school">Brigham Young University</div>
+          <div class="edu-deg">B.A. Communications: Broadcast Journalism & English</div>
+          <div class="edu-note">⭐ President's Leadership Council, one of 15 students selected for high-level mentorship from university donors</div>
+        </div>
+        <div class="avail-box">
+          <div class="avail-pulse"><span class="pulse-dot"></span> Based in DFW, Texas</div>
+          <div class="avail-sub">Working remotely · Open to global opportunities</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="foot-name">Siovhan <span>Bolton</span></span>
+  <span class="foot-line">Social Media Strategist · Storyteller · Emmy Award Winner</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/script
